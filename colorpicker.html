@@ -1,0 +1,81 @@
+<!--
+  INFO 343 A/B
+  Color Picker Mini-project HTML file
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Renboga Palette</title>
+		<link rel="stylesheet" type="text/css" href="colorpicker.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> 
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+		<script src="color.js"></script>
+		<script src="colorpicker.js"></script>
+	</head>
+	<body>
+		<header id="headd">
+        <link rel="shortcut icon" href="http://faviconist.com/icons/8a519f6d01bb3fa23a6cda312f0d176a/favicon.ico" />
+		</header>
+		<div id =picker>
+			<div id=sidebar> 
+				<h2>Do you already have a color in mind? </h2>
+				<p>Give a <a href=http://en.wikipedia.org/wiki/Web_colors#HTML_color_names>color name</a> or a hex code <input type="text" id="colorName" name="cname" value="black"></p>
+				<h2>Or, let us give you a random one to get started. <button type="button" onclick="randomDude()">I'm feeling lucky.</button> </h2>
+				<div id="hsl">
+					<h3> Hue, Saturation, Luminosity in % </h3>
+					<span id="hue">0</span>
+					<span id="saturation">0</span>
+					<span id="luminosity">100</span>
+				</div>
+				<div id="rgb">
+					<h3> Red, Green, Blue 24-bit </h3>
+					<span id="Red">255</span>
+					<span id="Green">255</span>
+					<span id="Blue">255</span>
+				</div>
+				<div id="readout">
+					<h3> Read Out: </h3>
+					<p> </p>
+				</div>
+			</div>
+			<div id="display">
+				&nbsp;
+				
+				<div id="lighter" class="prevSq"></div>
+				<div id="darker" class="prevSq"></div>
+				<div id="triLeft" class="prevSq"></div>
+				<div id="triRight" class="prevSq"></div>
+                <div id="chosen" class="prevSq"></div>
+			</div>
+		</div>
+		<div id="sitePreview">
+			<header> 
+				<h1> HEADERS UNITE </h1>
+			</header><aside>
+				In molestie pellentesque nunc, vel pharetra dolor dapibus ac. 
+			</aside>
+			<section>
+				Curabitur nec risus ut mi tempor tempor. Etiam ultricies massa at arcu facilisis rutrum. Phasellus elit ipsum, molestie vel rutrum at, dictum et massa. tiam ultricies massa at arcu facilisis rutrum. Phasellus elit ipsum, molestie vel rutrum at, dictum et massa. tiam ultricies massa at arcu facilisis rutrum. Phasellus elit ipsum, molestie vel rutrum at, dictum et massa. tiam ultricies massa at arcu facilisis rutrum. Phasellus elit ipsum, molestie vel rutrum at, dictum et massa. tiam ultricies massa at arcu facilisis rutrum. Phasellus elit ipsum, molestie vel rutrum at, dictum et massa. tiam ultricies massa at arcu facilisis rutrum. Phasellus elit ipsum, molestie vel rutrum at, dictum et massa. 
+			</section>
+                        <div id="pacman"></div>
+			
+
+            <div id="triangle"> </div>
+            <div id="heart"> </div>
+                <div class="circles uno"></div>
+                      <div class="circles dos"></div>
+                    <div class="circles uno"></div>
+                       <div class="circles tres"></div>
+                        <div class="circles dos"></div>
+                 
+                    
+                       
+                           <div class="circles tres"></div>
+			<footer>
+ 				 &copy; Hassan Uraizee & Travis Juntara 
+ 			</footer>
+		</div>
+	</body>
+</html>

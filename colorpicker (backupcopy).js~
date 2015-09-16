@@ -1,0 +1,177 @@
+// Hassan Uraizee (A) and Travis Juntara (B)
+// INFO 343 A/B
+// 10/28/2012
+// Color Picker Mini-project javascript
+
+
+var theColor = new Color();
+
+var $colorName = $('#sidebar input');
+
+var $R = $('#rgb #Red');
+var $G = $('#rgb #Green');
+var $B = $('#rgb #Blue');
+var $H = $('#hsl #hue');
+var $S = $('#hsl #saturation');
+var $L = $('#hsl #luminosity');
+
+$(document).ready(function(){ 
+	theColor.setHex("#FFFFFF");
+	sliders();
+	fillColor();
+	$colorName.change(setColor);
+	$('#hsl').change(setHSL);
+	$('#rgb').change(setRGB);
+	$('#chosen').click(function(){
+		disperse();
+	 });
+
+} );
+
+function disperse() {
+	$("#lighter").css({"margin-top": "17em", "margin-left": "420px"});
+	$("#darker").css({"margin-top": "3em", "margin-left": "420px"});
+	$("#triLeft").css({"margin-top": "10em", "margin-left": "300px"});
+	$("#triRight").css({"margin-top": "10em", "margin-left": "540px"});
+}
+
+
+function sliders() {
+    // setup color sliders
+    $( "#hsl > span" ).each(function() {
+        // read initial values from markup and remove that
+        var value = parseInt( $( this ).text(), 10 );
+        $( this ).empty().slider({
+            value: value,
+		min: 0,
+		max: 100,
+            animate: true,
+            orientation: "vertical"
+        });
+    });
+    $H.slider("max", 360);
+    $( "#rgb > span" ).each(function() {
+        // read initial values from markup and remove that
+        var value = parseInt( $( this ).text(), 10 );
+        $( this ).empty().slider({
+            value: value,
+            min: 0,
+	    max: 255,
+            animate: true,
+            orientation: "horizontal"
+        });
+    });
+}
+
+function randomDude () {
+	var randomR=Math.floor(Math.random()* 255);
+	var randomG=Math.floor((Math.random()* 255));
+	var randomB=Math.floor((Math.random()* 255));
+	theColor.setRGB(randomR, randomG, randomB);
+	$colorName.val(theColor.hex);
+}
+
+function setColor() {
+	//sets up the color
+	var trueColor;
+	var userColor = $colorName.val().toLowerCase().replace(" ", "");
+	for(var i = 0; i < basicColorNames.length; i++){
+		//finds color name from basic color name array
+		if(userColor == basicColorName[i].color){
+			trueColor = basicColorName[i].hex;
+		}
+	}
+	 if(trueColor[0] != '#'){
+		//replace with HTML inject into readout display
+		alert('Not a Valid Color;');
+	 }
+	 theColor.setHex(trueColor);
+	 //calibrate sliders
+	 calRGBSliders();
+	 calHSLSliders();
+	 fillColor();
+}
+
+function calRGBSliders(){
+	// recalibrates the RGB sliders
+	$R.slider( "value", theColor.r );
+	$G.slider( "value", theColor.g );
+	$B.slider( "value", theColor.b )
+}
+
+function calHSLSliders(){
+	// recalibrates the HSL sliders
+	$H.slider( "value", theColor.h);
+	$S.slider( "value", theColor.s);
+	$L.slider( "value", theColor.l );
+}
+
+function setRGB(){
+	var r = $R.slider("value");
+	var g = $G.slider("value");
+	var b = $B.slider("value");
+	theColor.setRGB(r, g, b);
+	$colorName.val(theColor.hex);
+	fillColor();
+}
+
+function setHSL(){
+	var h = $H.slider("value");
+	var s = $S.slider("value");
+	var l = $L.slider("value");
+	theColor.setHSL(h, s, l);
+	$colorName.val(theColor.hex);
+	fillColor();
+}
+
+function fillColor(){
+	$('#chosen').css('background-color', theColor.hex);
+	//auto-generates the 2-4 paired colors
+	var triLeft = new Color();
+	var triRight = new Color();
+	var lighter = new Color();
+	var darker = new Color();
+	
+	triLeft.setHSL(theColor.h - 120, theColor.s, theColor.l);
+	triRight.setHSL(theColor.h + 120, theColor.s, theColor.l);
+	if(theColor.l > 80) {
+	   darker.setHSL(theColor.h + 180, theColor.s, theColor.l);
+	}else{
+	  darker.setHSL(theColor.h, theColor.s, theColor.l - 20);
+	}
+	if(theColor.l < 20){
+	    lighter.setHSL(theColor.h + 180, theColor.s, theColor.l);
+	}else{
+	    lighter.setHSL(theColor.h, theColor.s, theColor.l + 20);
+	}
+	$('#triLeft').css('background-color', triLeft.hex);
+	$('#triRight').css('background-color', triRight.hex);
+	$('#lighter').css('background-color', lighter.hex);
+	$('#darker').css('background-color', theColor.hex);
+}
+
+//associative array for basic colors to hex code
+var basicColorNames = [
+	{color: 'aliceblue', hex:'#F0F8FF'},
+	{color: 'aqua', hex:'#00FFFF'},
+	{color: 'azure', hex:'#F0FFFF'},
+	{color: 'beige', hex:'#F5F5DC'},
+	{color: 'black', hex:'#000000'},
+	{color: 'blue', hex:'#0000FF'},
+	{color: 'brown', hex:'#A52A52A'},
+	{color: 'fuchsia', hex:'#FF00FF'},
+	{color: 'gray', hex:'#808080'},
+	{color: 'grey', hex:'#808080'},
+	{color: 'green', hex:'#008000'},
+	{color: 'lime', hex:'#00FF00'},
+	{color: 'maroon', hex:'#800000'},
+	{color: 'navy', hex:'#000080'},
+	{color: 'olive', hex:'#808000'},
+	{color: 'purple', hex:'#800080'},
+	{color: 'red', hex:'#FF0000'},
+	{color: 'silver', hex:'#C0C0C0'},
+	{color: 'teal', hex:'#008080'},
+	{color: 'white', hex:'#FFFFFF'},
+	{color: 'yellow', hex:'#FFFF00'}
+]
+
